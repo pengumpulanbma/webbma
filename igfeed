@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Instagram BMA</title>
+    <script
+      type="module"
+      src="https://unpkg.com/@nocodeapi/embed-instagram-feed@latest/embed-instagram-feed.js?module"
+    ></script>
+  </head>
+  <body>
+    <embed-instagram-feed
+      url="Your Instagram API from NoCodeAPI"
+    ></embed-instagram-feed>
+  </body>
+</html>
