@@ -7,7 +7,7 @@
 </head>
 <body>
 <h2>Kalkulator Zakat Emas</h2>
-<label for="inputAngka">Total nilai emas yang sudah sampai nishab 94gram dan haul (Rp):<p></label>
+<label for="inputAngka">Jumlah emas yang tersimpan selama 1 tahun (dikonversi ke Rp):<p></label>
 <input type="number" id="inputAngka">
 <button onclick="hitungZakat()">Hitung Zakat</button></p>
 <p id="hasilZakat"></p>
