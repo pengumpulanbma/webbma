@@ -18,7 +18,7 @@ function hitungZakat() {
   var zakat = penghasilan * 0.25;
 
   if (zakat < 262500) {
-    document.getElementById("hasil").innerHTML = "Penghasilan Anda belum mencapai nisab 94 gram emas, jadi tidak wajib membayar zakat.";
+    document.getElementById("hasil").innerHTML = "Penghasilan Anda belum mencapai nisab (94 gram emas), jadi tidak wajib membayar zakat.";
   } else {
     document.getElementById("hasil").innerHTML = "Jumlah zakat yang harus Anda bayar: <br><strong>Rp" + zakat + "</strong>";
   }
