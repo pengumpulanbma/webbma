@@ -8,6 +8,7 @@
 <body>
 <h2>Kalkulator Zakat Profesi</h2>
 <label for="inputAngka">Masukkan Total Penghasilan (Rp):</label>
+    <b></b>
 <input type="number" id="inputAngka">
 <button onclick="hitungZakat()">Hitung Zakat</button>
 <p id="hasilZakat"></p>
@@ -16,7 +17,7 @@
 function hitungZakat() {
     var inputAngka = document.getElementById("inputAngka").value;
     var zakat = inputAngka * 0.025;
-    document.getElementById("hasilZakat").innerHTML = "Zakat Profesi yang harus Anda bayar adalah Rp " + zakat;
+    document.getElementById("hasilZakat").innerHTML = "Zakat Profesi yang harus Anda bayarkan adalah Rp " + zakat;
 }
 </script>
 </body>
