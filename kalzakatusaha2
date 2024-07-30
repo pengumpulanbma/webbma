@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalkulator Zakat Perusahaan (Jasa)</title>
+</head>
+<body>
+<h2>Kalkulator Zakat Perusahaan (Jasa)</h2>
+<label for="inputAngka">Laba sebelum pajak (Rp):<p></label>
+<input type="number" id="inputAngka">
+<button onclick="hitungZakat()">Hitung Zakat</button></p>
+<p id="hasilZakat"></p>
+
+<script>
+function hitungZakat() {
+    var inputAngka = document.getElementById("inputAngka").value;
+    var zakat = inputAngka * 0.025;
+    document.getElementById("hasilZakat").innerHTML = "Zakat yang harus Anda bayar adalah:<br><strong>Rp" + zakat + "</strong>";
+}
+</script>
+</body>
+</html>
