@@ -54,8 +54,8 @@
         if (zakatPerBulan < 262500) {
             message = "Anda belum wajib zakat karena total penghasilan masih di bawah nishab.";
         } else {
-            message = `Zakat per bulan: Rp ${zakatPerBulan}<br>
-                       Total zakat untuk 12 bulan: Rp ${totalZakat}`;
+            message = `Zakat per bulan: <strong>Rp ${zakatPerBulan}</strong><br>
+                       Total zakat untuk 12 bulan: <strong>Rp ${totalZakat}</strong>`;
         }
 
         document.getElementById('result').innerHTML = message;
