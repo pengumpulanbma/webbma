@@ -1,23 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kalkulator Zakat Perusahaan (Jasa)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Zakat Perusahaan (Jasa)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input[type="number"] {
+            width: 200px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-<h2>Kalkulator Zakat Perusahaan (Jasa)</h2>
-<label for="inputAngka">Laba sebelum pajak (Rp):<p></label>
-<input type="number" id="inputAngka">
-<button onclick="hitungZakat()">Hitung Zakat</button></p>
-<p id="hasilZakat"></p>
+
+<h1>Kalkulator Zakat Perusahaan (Jasa)</h1>
+<label for="profit">Laba sebelum pajak (Rp):</label>
+<input type="number" id="profit" placeholder="Contoh: 10000000" required>
+<br>
+<button onclick="calculateZakat()">Hitung Zakat</button>
+
+<div class="result" id="result"></div>
 
 <script>
-function hitungZakat() {
-    var inputAngka = document.getElementById("inputAngka").value;
-    var zakat = inputAngka * 0.025;
-    document.getElementById("hasilZakat").innerHTML = "Zakat yang harus Anda bayar adalah:<br><strong>Rp" + zakat + "</strong>";
-}
+    function calculateZakat() {
+        const profit = parseFloat(document.getElementById('profit').value);
+        if (isNaN(profit) || profit <= 0) {
+            document.getElementById('result').innerHTML = "Silakan masukkan angka laba yang valid.";
+            return;
+        }
+
+        const zakat = Math.round(profit * 0.025);
+
+        document.getElementById('result').innerHTML = `Zakat yang harus dibayarkan: Rp ${zakat}`;
+    }
 </script>
-</body>
-</html>
+
+</body
