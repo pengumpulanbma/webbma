@@ -1,33 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kalkulator Zakat Perusahaan (Dagang/Industri)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Zakat Perusahaan (Dagang/Industri)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input[type="number"] {
+            width: 200px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-<h2>Kalkulator Zakat Perusahaan (Dagang/Industri)</h2>
-<form id="zakatForm">
-    <label for="asetLancar">Aset Lancar (Rp):</label>
-    <input type="number" id="asetLancar" name="asetLancar" required>
-    <br>
-    <label for="hutang">Hutang Lancar (Rp):</label>
-    <input type="number" id="hutang" name="hutang">
-    <br>
-    <button type="button" onclick="hitungZakat()">Hitung Zakat</button>
-</form>
-<p id="hasilZakat"></p>
+
+<h1>Kalkulator Zakat Perusahaan (Dagang/Industri)</h1>
+<label for="currentAssets">Aset Lancar (R):</label>
+<input type="number" id="currentAssets" placeholder="Contoh: 10000000" required>
+<br>
+<label for="currentLiabilities">Hutang Lancar (Rp):</label>
+<input type="number" id="currentLiabilities" placeholder="Contoh: 5000000" required>
+<br>
+<button onclick="calculateZakat()">Hitung Zakat</button>
+
+<div class="result" id="result"></div>
 
 <script>
-function hitungZakat() {
-    var asetLancar = parseFloat(document.getElementById("asetLancar").value);
-    var hutang = parseFloat(document.getElementById("hutang").value) || 0;
-    
-    var zakat = (asetLancar - hutang) * 0.025;
-    
-    document.getElementById("hasilZakat").innerHTML = "Jumlah zakat yang harus Anda bayar adalah: <br><strong>Rp" + zakat + "</strong>";
-}
+    function calculateZakat() {
+        const currentAssets = parseFloat(document.getElementById('currentAssets').value);
+        const currentLiabilities = parseFloat(document.getElementById('currentLiabilities').value);
+        
+        if (isNaN(currentAssets) || currentAssets < 0 || isNaN(currentLiabilities) || currentLiabilities < 0) {
+            document.getElementById('result').innerHTML = "Silakan masukkan angka yang valid untuk aset dan hutang.";
+            return;
+        }
 
+        const netAssets = currentAssets - currentLiabilities;
+        const zakat = Math.round(netAssets * 0.025);
+
+        if (netAssets <= 0) {
+            document.getElementById('result').innerHTML = "Aset lancar tidak cukup untuk membayar zakat.";
+        } else {
+            document.getElementById('result').innerHTML = `Zakat yang harus dibayarkan: Rp ${zakat}`;
+        }
+    }
 </script>
+
 </body>
 </html>
