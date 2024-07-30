@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Zakat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input[type="number"] {
+            width: 200px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Kalkulator Zakat Profesi</h1>
+<label for="income">Masukkan penghasilan bulanan:</label>
+<input type="number" id="income" placeholder="Contoh: 5000000" required>
+<br>
+<button onclick="calculateZakat()">Hitung Zakat</button>
+
+<div class="result" id="result"></div>
+
+<script>
+    function calculateZakat() {
+        const income = parseFloat(document.getElementById('income').value);
+        if (isNaN(income) || income <= 0) {
+            document.getElementById('result').innerHTML = "Silakan masukkan penghasilan yang valid.";
+            return;
+        }
+
+        const zakatPerBulan = Math.round(income * 0.025);
+        const totalZakat = zakatPerBulan * 12;
+
+        let message = '';
+        if (zakatPerBulan < 262500) {
+            message = "Anda belum wajib zakat karena total penghasilan masih di bawah nishab.";
+        } else {
+            message = `Zakat per bulan: Rp ${zakatPerBulan}<br>
+                       Total zakat untuk 12 bulan: Rp ${totalZakat}`;
+        }
+
+        document.getElementById('result').innerHTML = message;
+    }
+</script>
+
+</body>
+</html>
