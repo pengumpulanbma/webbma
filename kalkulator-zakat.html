@@ -122,6 +122,8 @@
                 message = 'Anda belum wajib zakat.';
             } else {
                 zakat = Math.floor(penghasilan * 0.025);
+                const zakatTahunan = zakat * 12; // Menghitung zakat untuk 12 bulan
+                message = `Jumlah Zakat yang harus dibayar per bulan: Rp ${formatRp(zakat)}<br>Jumlah Zakat yang harus dibayar untuk 12 bulan: Rp ${formatRp(zakatTahunan)}`;
             }
         } else if (zakatType === 'perdagangan') {
             const asetLancar = parseFloat(document.getElementById('asetLancar').value);
@@ -130,6 +132,7 @@
                 message = 'Silakan masukkan angka yang valid.';
             } else {
                 zakat = Math.floor((asetLancar - utang) * 0.025);
+                message = `Jumlah Zakat yang harus dibayar: Rp ${formatRp(zakat)}`;
             }
         } else if (zakatType === 'perusahaan') {
             const jenisPerusahaan = document.getElementById('jenisPerusahaan').value;
@@ -140,6 +143,7 @@
                     message = 'Silakan masukkan angka yang valid.';
                 } else {
                     zakat = Math.floor((asetLancar - utang) * 0.025);
+                    message = `Jumlah Zakat yang harus dibayar: Rp ${formatRp(zakat)}`;
                 }
             } else {
                 const laba = parseFloat(document.getElementById('laba').value);
@@ -147,6 +151,7 @@
                     message = 'Silakan masukkan angka yang valid.';
                 } else {
                     zakat = Math.floor(laba * 0.025);
+                    message = `Jumlah Zakat yang harus dibayar: Rp ${formatRp(zakat)}`;
                 }
             }
         } else if (zakatType === 'emas') {
@@ -155,16 +160,15 @@
                 message = 'Silakan masukkan angka yang valid.';
             } else {
                 zakat = Math.floor(jumlahEmas * 0.025);
+                message = `Jumlah Zakat yang harus dibayar: Rp ${formatRp(zakat)}`;
             }
         }
 
         if (zakat <= 0) {
             message = message || 'Anda belum wajib zakat.';
-        } else {
-            message = `Jumlah Zakat yang harus dibayar: Rp ${formatRp(zakat)}`;
         }
 
-        document.getElementById('result').innerText = message;
+        document.getElementById('result').innerHTML = message;
     }
 
     function resetForm() {
