@@ -95,6 +95,9 @@
         document.getElementById('perdaganganField').style.display = value === 'perdagangan' ? 'block' : 'none';
         document.getElementById('perusahaanField').style.display = value === 'perusahaan' ? 'block' : 'none';
         document.getElementById('emasField').style.display = value === 'emas' ? 'block' : 'none';
+
+        // Reset hasil perhitungan saat jenis zakat berubah
+        document.getElementById('result').innerText = '';
     }
 
     document.getElementById('zakatType').addEventListener('change', updateInputFields);
@@ -132,7 +135,7 @@
                 message = 'Silakan masukkan angka yang valid.';
             } else {
                 zakat = Math.floor((asetLancar - utang) * 0.025);
-                message = `Jumlah Zakat yang harus dibayar: Rp ${formatRp(zakat)}`;
+                message = zakat > 0 ? `Jumlah Zakat yang harus dibayar: Rp ${formatRp(zakat)}` : 'Anda belum wajib zakat.';
             }
         } else if (zakatType === 'perusahaan') {
             const jenisPerusahaan = document.getElementById('jenisPerusahaan').value;
@@ -143,7 +146,7 @@
                     message = 'Silakan masukkan angka yang valid.';
                 } else {
                     zakat = Math.floor((asetLancar - utang) * 0.025);
-                    message = `Jumlah Zakat yang harus dibayar: Rp ${formatRp(zakat)}`;
+                    message = zakat > 0 ? `Jumlah Zakat yang harus dibayar: Rp ${formatRp(zakat)}` : 'Anda belum wajib zakat.';
                 }
             } else {
                 const laba = parseFloat(document.getElementById('laba').value);
@@ -151,7 +154,7 @@
                     message = 'Silakan masukkan angka yang valid.';
                 } else {
                     zakat = Math.floor(laba * 0.025);
-                    message = `Jumlah Zakat yang harus dibayar: Rp ${formatRp(zakat)}`;
+                    message = zakat > 0 ? `Jumlah Zakat yang harus dibayar: Rp ${formatRp(zakat)}` : 'Anda belum wajib zakat.';
                 }
             }
         } else if (zakatType === 'emas') {
@@ -160,12 +163,8 @@
                 message = 'Silakan masukkan angka yang valid.';
             } else {
                 zakat = Math.floor(jumlahEmas * 0.025);
-                message = `Jumlah Zakat yang harus dibayar: Rp ${formatRp(zakat)}`;
+                message = zakat > 0 ? `Jumlah Zakat yang harus dibayar: Rp ${formatRp(zakat)}` : 'Anda belum wajib zakat.';
             }
-        }
-
-        if (zakat <= 0) {
-            message = message || 'Anda belum wajib zakat.';
         }
 
         document.getElementById('result').innerHTML = message;
