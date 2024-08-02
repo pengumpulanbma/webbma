@@ -22,9 +22,16 @@
             padding: 10px 15px;
             border: none;
             cursor: pointer;
+            margin-right: 10px; /* Jarak antara tombol */
         }
         button:hover {
             background-color: #45a049; /* Warna lebih gelap saat hover */
+        }
+        .reset-button {
+            background-color: #f44336; /* Merah */
+        }
+        .reset-button:hover {
+            background-color: #e53935; /* Warna lebih gelap saat hover */
         }
     </style>
 </head>
@@ -76,6 +83,7 @@
 </div>
 
 <button onclick="hitungZakat()">Hitung Zakat</button>
+<button class="reset-button" onclick="resetForm()">Reset</button>
 
 <div class="result" id="result"></div>
 
@@ -159,6 +167,20 @@
         document.getElementById('result').innerText = message;
     }
 
+    function resetForm() {
+        // Kosongkan semua kolom input
+        document.getElementById('penghasilan').value = '';
+        document.getElementById('asetLancar').value = '';
+        document.getElementById('utang').value = '';
+        document.getElementById('asetLancarPerusahaan').value = '';
+        document.getElementById('utangPerusahaan').value = '';
+        document.getElementById('laba').value = '';
+        document.getElementById('jumlahEmas').value = '';
+        
+        // Hapus hasil perhitungan
+        document.getElementById('result').innerText = ''; 
+    }
+
     // Menampilkan input untuk Zakat Profesi saat halaman dimuat
     window.onload = function() {
         updateInputFields();
@@ -167,4 +189,3 @@
 
 </body>
 </html>
-
