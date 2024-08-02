@@ -1,1 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Zakat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .warning {
+            color: red;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        button {
+            background-color: #4CAF50; /* Hijau terang */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049; /* Warna lebih gelap saat hover */
+        }
+    </style>
+</head>
+<body>
+
+<h1>Kalkulator Zakat</h1>
+<p>Perhatian: nisab zakat adalah 94 gram emas.</p>
+
+<label for="zakatType">Pilih Jenis Zakat:</label>
+<select id="zakatType">
+    <option value="profesi" selected>Zakat Profesi</option>
+    <option value="perdagangan">Zakat Perdagangan</option>
+    <option value="perusahaan">Zakat Perusahaan</option>
+    <option value="emas">Zakat Emas</option>
+</select>
+
+<div id="inputFields">
+    <div id="profesiField">
+        <label for="penghasilan">Penghasilan Bulanan (Rp):</label>
+        <input type="number" id="penghasilan" placeholder="Contoh 10500000">
+    </div>
+    <div id="perdaganganField" style="display:none;">
+        <label for="asetLancar">Aset Lancar (Rp):</label>
+        <input type="number" id="asetLancar" placeholder="Contoh 50000000"><br>
+        <label for="utang">Utang Jangka Pendek (Rp):</label>
+        <input type="number" id="utang" placeholder="Contoh 20000000">
+    </div>
+    <div id="perusahaanField" style="display:none;">
+        <label for="jenisPerusahaan">Jenis Perusahaan:</label>
+        <select id="jenisPerusahaan">
+            <option value="dagang">Perusahaan Dagang/Industri</option>
+            <option value="jasa">Perusahaan Jasa</option>
+        </select>
+        <div id="perusahaanDagangan">
+            <label for="asetLancarPerusahaan">Aset Lancar (Rp):</label>
+            <input type="number" id="asetLancarPerusahaan" placeholder="Contoh 100000000"><br>
+            <label for="utangPerusahaan">Utang Lancar (Rp):</label>
+            <input type="number" id="utangPerusahaan" placeholder="Contoh 30000000">
+        </div>
+        <div id="perusahaanJasa" style="display:none;">
+            <label for="laba">Laba Sebelum Pajak (Rp):</label>
+            <input type="number" id="laba" placeholder="Contoh 25000000">
+        </div>
+    </div>
+    <div id="emasField" style="display:none;">
+        <label for="jumlahEmas">Jumlah emas yang tersimpan selama setahun (dikonversi ke Rp):</label>
+        <input type="number" id="jumlahEmas" placeholder="Contoh 100000000">
+    </div>
+</div>
+
+<button onclick="hitungZakat()">Hitung Zakat</button>
+
+<div class="result" id="result"></div>
+
+<script>
+    // Fungsi untuk menampilkan input yang sesuai dengan jenis zakat yang dipilih
+    function updateInputFields() {
+        const value = document.getElementById('zakatType').value;
+        document.getElementById('profesiField').style.display = value === 'profesi' ? 'block' : 'none';
+        document.getElementById('perdaganganField').style.display = value === 'perdagangan' ? 'block' : 'none';
+        document.getElementById('perusahaanField').style.display = value === 'perusahaan' ? 'block' : 'none';
+        document.getElementById('emasField').style.display = value === 'emas' ? 'block' : 'none';
+    }
+
+    document.getElementById('zakatType').addEventListener('change', updateInputFields);
+
+    document.getElementById('jenisPerusahaan').addEventListener('change', function() {
+        const value = this.value;
+        document.getElementById('perusahaanDagangan').style.display = value === 'dagang' ? 'block' : 'none';
+        document.getElementById('perusahaanJasa').style.display = value === 'jasa' ? 'block' : 'none';
+    });
+
+    function formatRp(angka) {
+        return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+    function hitungZakat() {
+        const zakatType = document.getElementById('zakatType').value;
+        let zakat = 0;
+        let message = '';
+
+        if (zakatType === 'profesi') {
+            const penghasilan = parseFloat(document.getElementById('penghasilan').value);
+            if (isNaN(penghasilan)) {
+                message = 'Silakan masukkan angka yang valid.';
+            } else if (penghasilan < 10500000) {
+                message = 'Anda belum wajib zakat.';
+            } else {
+                zakat = Math.floor(penghasilan * 0.025);
+            }
+        } else if (zakatType === 'perdagangan') {
+            const asetLancar = parseFloat(document.getElementById('asetLancar').value);
+            const utang = parseFloat(document.getElementById('utang').value);
+            if (isNaN(asetLancar) || isNaN(utang)) {
+                message = 'Silakan masukkan angka yang valid.';
+            } else {
+                zakat = Math.floor((asetLancar - utang) * 0.025);
+            }
+        } else if (zakatType === 'perusahaan') {
+            const jenisPerusahaan = document.getElementById('jenisPerusahaan').value;
+            if (jenisPerusahaan === 'dagang') {
+                const asetLancar = parseFloat(document.getElementById('asetLancarPerusahaan').value);
+                const utang = parseFloat(document.getElementById('utangPerusahaan').value);
+                if (isNaN(asetLancar) || isNaN(utang)) {
+                    message = 'Silakan masukkan angka yang valid.';
+                } else {
+                    zakat = Math.floor((asetLancar - utang) * 0.025);
+                }
+            } else {
+                const laba = parseFloat(document.getElementById('laba').value);
+                if (isNaN(laba)) {
+                    message = 'Silakan masukkan angka yang valid.';
+                } else {
+                    zakat = Math.floor(laba * 0.025);
+                }
+            }
+        } else if (zakatType === 'emas') {
+            const jumlahEmas = parseFloat(document.getElementById('jumlahEmas').value);
+            if (isNaN(jumlahEmas)) {
+                message = 'Silakan masukkan angka yang valid.';
+            } else {
+                zakat = Math.floor(jumlahEmas * 0.025);
+            }
+        }
+
+        if (zakat <= 0) {
+            message = message || 'Anda belum wajib zakat.';
+        } else {
+            message = `Jumlah Zakat yang harus dibayar: Rp ${formatRp(zakat)}`;
+        }
+
+        document.getElementById('result').innerText = message;
+    }
+
+    // Menampilkan input untuk Zakat Profesi saat halaman dimuat
+    window.onload = function() {
+        updateInputFields();
+    };
+</script>
+
+</body>
+</html>
 
